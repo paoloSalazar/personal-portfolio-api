@@ -8,9 +8,14 @@ users_schema = UserSchema(many=True)
 def create_user(data):
     # Hash the password before saving
     password_hash = bcrypt.generate_password_hash(data['password']).decode('utf-8')
-    data['password'] = password_hash
 
-    new_user = user_schema.load(data)
+    # Create user instance directly instead of using schema.load
+    new_user = User(
+        name=data['name'],
+        email=data['email'],
+        password=password_hash
+    )
+
     db.session.add(new_user)
     db.session.commit()
     return new_user
@@ -24,11 +29,14 @@ def get_all_users():
 def update_user(user_id, data):
     user = User.query.get(user_id)
     if user:
-        # Hash password if it's being updated
+        # Update fields directly
+        if 'name' in data:
+            user.name = data['name']
+        if 'email' in data:
+            user.email = data['email']
         if 'password' in data:
-            data['password'] = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+            user.password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
 
-        user_schema.load(data, instance=user, partial=True)
         db.session.commit()
         return user
     return None
