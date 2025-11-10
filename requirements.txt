@@ -8,4 +8,6 @@ pytest
 pytest-flask
 PyMySQL
 cryptography
+Flask-Bcrypt
 flask-jwt-extended
+python-dotenv

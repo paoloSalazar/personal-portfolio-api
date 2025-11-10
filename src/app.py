@@ -1,4 +1,10 @@
 from flask import Flask
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+load_dotenv()
+
 from config import Config
 from routes.api import api_bp
 from utils.extensions import db
