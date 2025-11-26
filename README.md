@@ -70,6 +70,53 @@ To run the tests, use:
 pytest tests/
 ```
 
+## Debug with VSCode
+To use VS Code breakpoints instead of terminal, create a debug configuration file.
+
+Create .vscode/launch.json in your project root:
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Flask App",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_APP": "src.app:create_app",
+                "FLASK_ENV": "development",
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "args": ["run", "--debug"],
+            "jinja": true,
+            "justMyCode": true
+        },
+        {
+            "name": "Pytest",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pytest",
+            "args": ["./tests", "-v", "--tb=short"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}
+```
+To debug:
+
+1\. Click the line number in [user_service.py]user_service.py ) to set a breakpoint (red dot)
+2\. Open Run & Debug in VS Code (Ctrl+Shift+D)
+3\. Select "Flask App" or "Pytest" from dropdown
+4\. Press F5 to start debugging
+5\. When code hits your breakpoint, execution pauses and you can:
+* Hover over variables to inspect values
+* Use Debug Console to run commands
+* Step through code (F10 = step over, F11 = step into)
+
+The debugger will stop at your breakpoint in [create_user()]user_service.py ) function.
+
 ## License
 
 This project is licensed under the MIT License.

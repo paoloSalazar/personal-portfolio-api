@@ -2,30 +2,44 @@ try:
     from models.user import User
     from schemas.user_schema import UserSchema
     from utils.extensions import db, bcrypt
+    from exceptions.user_exceptions import UserAlreadyExistsException, UserDatabaseException
 except ImportError:
     from src.models.user import User
     from src.schemas.user_schema import UserSchema
     from src.utils.extensions import db, bcrypt
+    from src.exceptions.user_exceptions import UserAlreadyExistsException, UserDatabaseException
+
+import logging
+logger = logging.getLogger(__name__)
     
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
 def create_user(data):
-    # Hash the password before saving
-    password_hash = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+    try:
+        # Hash the password before saving
+        password_hash = bcrypt.generate_password_hash(data['password']).decode('utf-8')
 
-    # Create user instance directly instead of using schema.load
-    new_user = User(
-        name=data['name'],
-        last_name=data['last_name'],
-        second_last_name=data.get('second_last_name'),
-        email=data['email'],
-        password=password_hash
-    )
+        # Create user instance directly instead of using schema.load
+        new_user = User(
+            name=data['name'],
+            last_name=data['last_name'],
+            second_last_name=data.get('second_last_name'),
+            email=data['email'],
+            password=password_hash
+        )
 
-    db.session.add(new_user)
-    db.session.commit()
-    return new_user
+        db.session.add(new_user)
+        db.session.commit()
+        return new_user
+    except Exception as e:
+        db.session.rollback()
+        if "Duplicate entry" in str(e) and "email" in str(e):
+            logger.error(f"Attempted to create user with duplicate email: {data['email']}")
+            raise UserAlreadyExistsException(data['email'])
+        else:
+            logger.error(f"Database error during user creation: {str(e)}")
+            raise UserDatabaseException(f"Failed to create user: {str(e)}")
 
 def get_user(user_id):
     return User.query.get(user_id)

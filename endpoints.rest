@@ -5,6 +5,10 @@ Content-Type: application/json
 
 ###
 
+GET {{api}}/users/1
+Content-Type: application/json
+
+###
 POST {{api}}/users
 Content-Type: application/json
 

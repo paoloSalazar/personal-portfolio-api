@@ -6,10 +6,12 @@ try:
     from models.user import User
     from schemas.user_schema import UserSchema
     from services.user_service import create_user, get_user, get_all_users, update_user, delete_user
+    from exceptions.user_exceptions import UserException
 except ImportError:
     from src.models.user import User
     from src.schemas.user_schema import UserSchema
     from src.services.user_service import create_user, get_user, get_all_users, update_user, delete_user
+    from src.exceptions.user_exceptions import UserException
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
@@ -32,23 +34,31 @@ class UserResource(Resource):
             return users_schema.dump(users), 200
 
     def post(self):
-        logger.info("POST request to create user")
-        user_data = request.get_json()
-        logger.debug(f"User data received: {user_data}")
-        user = create_user(user_data)
-        logger.info(f"User created with ID: {user.id}")
-        return user_schema.dump(user), 201
+        try:
+            logger.info("POST request to create user")
+            user_data = request.get_json()
+            logger.debug(f"User data received: {user_data}")
+            user = create_user(user_data)
+            logger.info(f"User created with ID: {user.id}")
+            return user_schema.dump(user), 201
+        except UserException as e:
+            logger.error(f"User creation failed: {e.message}")
+            return {'error': e.message}, e.status_code
 
     def put(self, user_id):
-        logger.info(f"PUT request to update user {user_id}")
-        user_data = request.get_json()
-        logger.debug(f"Update data received: {user_data}")
-        user = update_user(user_id, user_data)
-        if user:
-            logger.info(f"User {user_id} updated successfully")
-            return user_schema.dump(user), 200
-        logger.warning(f"User {user_id} not found for update")
-        return {'message': 'User not found'}, 404
+        try:
+            logger.info(f"PUT request to update user {user_id}")
+            user_data = request.get_json()
+            logger.debug(f"Update data received: {user_data}")
+            user = update_user(user_id, user_data)
+            if user:
+                logger.info(f"User {user_id} updated successfully")
+                return user_schema.dump(user), 200
+            logger.warning(f"User {user_id} not found for update")
+            return {'message': 'User not found'}, 404
+        except UserException as e:
+            logger.error(f"User update failed: {e.message}")
+            return {'error': e.message}, e.status_code
 
     def delete(self, user_id):
         logger.info(f"DELETE request for user {user_id}")
