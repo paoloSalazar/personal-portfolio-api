@@ -17,6 +17,8 @@ def create_user(data):
     # Create user instance directly instead of using schema.load
     new_user = User(
         name=data['name'],
+        last_name=data['last_name'],
+        second_last_name=data['second_last_name'],
         email=data['email'],
         password=password_hash
     )
@@ -37,6 +39,10 @@ def update_user(user_id, data):
         # Update fields directly
         if 'name' in data:
             user.name = data['name']
+        if 'last_name' in data:
+            user.last_name = data['last_name']
+        if 'second_last_name' in data:
+            user.second_last_name = data['second_last_name']
         if 'email' in data:
             user.email = data['email']
         if 'password' in data:

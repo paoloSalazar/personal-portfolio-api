@@ -8,6 +8,8 @@ def test_get_all_users(client):
     # Create users via API
     post1 = client.post('/api/users', json={
         'name': 'User 1',
+        'last_name': 'Last1',
+        'second_last_name': 'Second1',
         'email': 'user1@example.com',
         'password': 'password1'
     })
@@ -15,6 +17,8 @@ def test_get_all_users(client):
 
     post2 = client.post('/api/users', json={
         'name': 'User 2',
+        'last_name': 'Last2',
+        'second_last_name': 'Second2',
         'email': 'user2@example.com',
         'password': 'password2'
     })
@@ -28,10 +32,14 @@ def test_get_all_users(client):
 def test_create_user(client):
     response = client.post('/api/users', json={
         'name': 'John Doe',
+        'last_name': 'Doe',
+        'second_last_name': 'Jr',
         'email': 'john@example.com',
         'password': 'password123'
     })
     assert response.status_code == 201, f"POST failed: {response.data}"
     assert 'id' in response.json
     assert 'name' in response.json
+    assert 'last_name' in response.json
+    assert 'second_last_name' in response.json
     assert 'email' in response.json

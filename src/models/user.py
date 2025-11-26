@@ -10,13 +10,17 @@ class User(db.Model):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
+    last_name = Column(String(100), nullable=False)
+    second_last_name = Column(String(100), nullable=True)
     email = Column(String(100), unique=True, nullable=False)
     password = Column(String(255), nullable=False)
 
-    def __init__(self, name, email, password):
+    def __init__(self, name, last_name, second_last_name, email, password):
         self.name = name
+        self.last_name = last_name
+        self.second_last_name = second_last_name
         self.email = email
         self.password = password
 
     def __repr__(self):
-        return f'<User {self.name}>'
+        return f'<User {self.name} {self.last_name} {self.second_last_name}>'
