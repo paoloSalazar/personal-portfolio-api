@@ -1,6 +1,7 @@
 from flask import Flask
 from dotenv import load_dotenv
 import os
+import logging
 
 # Load environment variables
 load_dotenv()
@@ -30,7 +31,17 @@ def create_app(config_class=None):
         except ImportError:
             from config import Config
         app.config.from_object(Config)
-    
+
+    # Configure logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.StreamHandler(),
+            logging.FileHandler('app.log')
+        ]
+    )
+
     # Initialize extensions
     db.init_app(app)
     migrate = Migrate(app, db)
