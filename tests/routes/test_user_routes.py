@@ -12,14 +12,14 @@ def test_get_all_users(client):
         'password': 'password1'
     })
     assert post1.status_code == 201, f"POST failed: {post1.data}"
-    
+
     post2 = client.post('/api/users', json={
         'name': 'User 2',
         'email': 'user2@example.com',
         'password': 'password2'
     })
     assert post2.status_code == 201, f"POST failed: {post2.data}"
-    
+
     # Get all users
     response = client.get('/api/users')
     assert response.status_code == 200, f"GET failed: {response.data}"
