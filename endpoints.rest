@@ -10,6 +10,19 @@ Content-Type: application/json
 
 {
     "name": "paolo",
-    "email": "paolo@example.com",
+    "last_name": "salazar",
+    "second_last_name": "villarroel",
+    "email": "paolo.salazar@example.com",
     "password": "salazar"
+}
+
+### 
+POST {{api}}/users
+Content-Type: application/json
+
+{
+    "name": "jhymy",
+    "last_name": "rodriguez",
+    "email": "jhimy.rodriguez@example.com",
+    "password": "rodriguez"
 }

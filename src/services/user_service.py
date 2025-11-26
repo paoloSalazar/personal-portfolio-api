@@ -18,7 +18,7 @@ def create_user(data):
     new_user = User(
         name=data['name'],
         last_name=data['last_name'],
-        second_last_name=data['second_last_name'],
+        second_last_name=data.get('second_last_name'),
         email=data['email'],
         password=password_hash
     )
