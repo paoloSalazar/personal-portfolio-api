@@ -1,7 +1,12 @@
-from models.user import User
-from schemas.user_schema import UserSchema
-from utils.extensions import db, bcrypt
-
+try:
+    from models.user import User
+    from schemas.user_schema import UserSchema
+    from utils.extensions import db, bcrypt
+except ImportError:
+    from src.models.user import User
+    from src.schemas.user_schema import UserSchema
+    from src.utils.extensions import db, bcrypt
+    
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 

@@ -54,6 +54,15 @@ python src/app.py
 
 The API will be available at `http://localhost:5000`.
 
+## Migrations
+To run migrations execute the next commands
+```bash
+# then use:
+flask db init
+flask db migrate -m "Initial migration"
+flask db upgrade
+```
+
 ## Testing
 
 To run the tests, use:

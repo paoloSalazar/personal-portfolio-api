@@ -1,5 +1,9 @@
 from sqlalchemy import Column, Integer, String
-from utils.extensions import db
+
+try:
+    from utils.extensions import db
+except ImportError:
+    from src.utils.extensions import db
 
 class User(db.Model):
     __tablename__ = 'users'

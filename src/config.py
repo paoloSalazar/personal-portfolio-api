@@ -11,9 +11,10 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
 
-class TestingConfig(Config):
+class TestConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL', 'sqlite:///test_db.sqlite3')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'  # Always use in-memory for tests
+    WTF_CSRF_ENABLED = False
 
 class ProductionConfig(Config):
     DEBUG = False

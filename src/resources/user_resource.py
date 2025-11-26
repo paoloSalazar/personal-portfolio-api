@@ -1,8 +1,14 @@
 from flask_restful import Resource, Api
 from flask import request
-from models.user import User
-from schemas.user_schema import UserSchema
-from services.user_service import create_user, get_user, get_all_users, update_user, delete_user
+
+try:
+    from models.user import User
+    from schemas.user_schema import UserSchema
+    from services.user_service import create_user, get_user, get_all_users, update_user, delete_user
+except ImportError:
+    from src.models.user import User
+    from src.schemas.user_schema import UserSchema
+    from src.services.user_service import create_user, get_user, get_all_users, update_user, delete_user
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)

@@ -1,12 +1,13 @@
+import os
 import pytest
 from src.app import create_app
+from src.config import TestConfig
 from src.utils.extensions import db
 
 @pytest.fixture
 def app():
-    app = create_app()
-    app.config['TESTING'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+    app = create_app(TestConfig)
+    
     with app.app_context():
         db.create_all()
         yield app

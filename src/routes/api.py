@@ -1,5 +1,9 @@
 from flask import Blueprint
-from resources.user_resource import UserResource
+
+try:
+    from resources.user_resource import UserResource
+except ImportError:
+    from src.resources.user_resource import UserResource
 
 api_bp = Blueprint('api', __name__)
 
