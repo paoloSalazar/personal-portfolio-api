@@ -30,3 +30,28 @@ Content-Type: application/json
     "email": "jhimy.rodriguez@example.com",
     "password": "rodriguez"
 }
+
+### 
+GET {{api}}/contacttypes
+Content-Type: application/json
+
+### 
+GET {{api}}/contacttypes/1
+Content-Type: application/json
+
+### 
+POST {{api}}/contacttypes
+Content-Type: application/json
+
+{
+    "name": "email",
+    "description": "Contact via email"
+}
+
+### 
+POST {{api}}/contacttypes
+Content-Type: application/json
+
+{
+    "name": "phone"
+}

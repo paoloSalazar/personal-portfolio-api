@@ -13,10 +13,16 @@ try:
     from config import Config
     from routes.api import api_bp
     from utils.extensions import db
+    # Import models to ensure they are registered with SQLAlchemy
+    from models.user import User
+    from models.contact_type import ContactType
 except ImportError:
     from .config import Config
     from .routes.api import api_bp
     from .utils.extensions import db
+    # Import models to ensure they are registered with SQLAlchemy
+    from .models.user import User
+    from .models.contact_type import ContactType
 
 
 

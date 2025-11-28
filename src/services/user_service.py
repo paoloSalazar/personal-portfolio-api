@@ -9,6 +9,7 @@ except ImportError:
     from src.utils.extensions import db, bcrypt
     from src.exceptions.user_exceptions import UserAlreadyExistsException, UserDatabaseException
 
+from sqlalchemy import select
 import logging
 logger = logging.getLogger(__name__)
     
@@ -42,13 +43,13 @@ def create_user(data):
             raise UserDatabaseException(f"Failed to create user: {str(e)}")
 
 def get_user(user_id):
-    return User.query.get(user_id)
+    return db.session.get(User, user_id)
 
 def get_all_users():
-    return User.query.all()
+    return db.session.execute(select(User)).scalars().all()
 
 def update_user(user_id, data):
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if user:
         # Update fields directly
         if 'name' in data:
@@ -67,7 +68,7 @@ def update_user(user_id, data):
     return None
 
 def delete_user(user_id):
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if user:
         db.session.delete(user)
         db.session.commit()
@@ -75,7 +76,7 @@ def delete_user(user_id):
     return False
 
 def verify_password(email, password):
-    user = User.query.filter_by(email=email).first()
+    user = db.session.execute(select(User).where(User.email == email)).scalar_one_or_none()
     if user and bcrypt.check_password_hash(user.password, password):
         return user
     return None

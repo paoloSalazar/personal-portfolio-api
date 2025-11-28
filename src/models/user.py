@@ -14,6 +14,8 @@ class User(db.Model):
     second_last_name = Column(String(100), nullable=True)
     email = Column(String(100), unique=True, nullable=False)
     password = Column(String(255), nullable=False)
+    created_at = Column(db.DateTime, server_default=db.func.now())
+    updated_at = Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     def __init__(self, name, last_name, second_last_name, email, password):
         self.name = name
