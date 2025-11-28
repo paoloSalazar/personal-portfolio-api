@@ -15,4 +15,4 @@ api_bp.add_url_rule('/users/<int:user_id>', view_func=UserResource.as_view('user
 
 # ContactType routes
 api_bp.add_url_rule('/contacttypes', view_func=ContactTypeResource.as_view('contacttypes'), methods=['GET', 'POST'])
-api_bp.add_url_rule('/contacttypes/<int:id>', view_func=ContactTypeResource.as_view('contacttype'), methods=['GET'])
+api_bp.add_url_rule('/contacttypes/<int:id>', view_func=ContactTypeResource.as_view('contacttype'), methods=['GET','PUT', 'DELETE'])

@@ -5,13 +5,13 @@ import logging
 try:
     from models.contact_type import ContactType
     from schemas.contact_type_schema import ContactTypeSchema
-    from services.contact_type_service import create_contact_type, get_all_contact_types, get_contact_type_by_id
-    from exceptions.contact_type_exceptions import ContactTypeException
+    from services.contact_type_service import create_contact_type, get_all_contact_types, get_contact_type_by_id, update_contact_type, delete_contact_type
+    from exceptions.contact_type_exceptions import ContactTypeException, ContactTypeNotFoundException
 except ImportError:
     from src.models.contact_type import ContactType
     from src.schemas.contact_type_schema import ContactTypeSchema
-    from src.services.contact_type_service import create_contact_type, get_all_contact_types, get_contact_type_by_id
-    from src.exceptions.contact_type_exceptions import ContactTypeException
+    from src.services.contact_type_service import create_contact_type, get_all_contact_types, get_contact_type_by_id, update_contact_type, delete_contact_type
+    from src.exceptions.contact_type_exceptions import ContactTypeException, ContactTypeNotFoundException
 
 contact_type_schema = ContactTypeSchema()
 contact_types_schema = ContactTypeSchema(many=True)
@@ -44,3 +44,32 @@ class ContactTypeResource(Resource):
             contact_types = get_all_contact_types()
             logger.info(f"Returning {len(contact_types)} contact types")
             return contact_types_schema.dump(contact_types), 200
+        
+    def put(self, id):
+        try:
+            logger.info(f"PUT request to update contact type {id}")
+            contact_type_data = request.get_json()
+            logger.debug(f"Update data received: {contact_type_data}")
+            contact_type = update_contact_type(id, contact_type_data)
+            if contact_type:
+                logger.info(f"Contact Type {id} updated successfully")
+                return contact_type_schema.dump(contact_type), 200
+            logger.warning(f"Contact Type {id} not found for update")
+            return {'message': 'Contact Type not found'}, 404
+        except ContactTypeException as e:
+            logger.error(f"Contact Type update failed: {e.message}")
+            return {'error': e.message}, e.status_code
+        
+    def delete(self, id):  # Added delete method
+        try:
+            logger.info(f"DELETE request for contact type {id}")
+            contact_type = get_contact_type_by_id(id)
+            if contact_type:
+                delete_contact_type(id)
+                logger.info(f"Contact Type {id} deleted successfully")
+                return {'message': 'Contact Type deleted successfully'}, 200
+            logger.warning(f"Contact Type {id} not found for deletion")
+            return {'message': f'Contact Type with ID {id} not found'}, 404
+        except ContactTypeException as e:
+            logger.error(f"Contact Type deletion failed: {e.message}")
+            return {'error': e.message}, e.status_code

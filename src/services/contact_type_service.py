@@ -42,3 +42,32 @@ def get_all_contact_types():
 
 def get_contact_type_by_id(contact_type_id):
     return db.session.get(ContactType, contact_type_id)
+
+def update_contact_type(contact_type_id, data):
+    """
+    Update a contact type.
+
+    Behavior:
+    - If 'name' is present in data => replace name.
+    - If 'description' is present in data => replace description (can be None to clear).
+    - If a key is omitted => leave that field unchanged.
+    """
+    contact_type = db.session.get(ContactType, contact_type_id)
+    if contact_type:
+        # Update fields only when provided in request payload
+        if 'name' in data:
+            contact_type.name = data['name']
+        if 'description' in data:
+            # use get so explicit None will set description to None
+            contact_type.description = data.get('description')
+        db.session.commit()
+        return contact_type
+    return None
+
+def delete_contact_type(contact_type_id):
+    contact_type = db.session.get(ContactType, contact_type_id)
+    if contact_type:
+        db.session.delete(contact_type)
+        db.session.commit()
+        return True
+    return False

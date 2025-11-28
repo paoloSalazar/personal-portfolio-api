@@ -56,3 +56,39 @@ def test_get_contact_type_by_id(client):
     assert response.json['id'] == contact_type_id
     assert response.json['name'] == 'email'
     assert response.json['description'] == 'Personal email address'
+
+def test_update_contact_type(client):
+    # Create a contact type via API
+    post = client.post('/api/contacttypes', json={
+        'name': 'email',
+        'description': 'Personal email address',
+    })
+    assert post.status_code == 201, f"POST failed: {post.data}"
+    contact_type_id = post.json['id']
+
+    # Update the contact type via API
+    put = client.put(f'/api/contacttypes/{contact_type_id}', json={
+        'name': 'work_email',
+        'description': 'Work email address',
+    })
+    assert put.status_code == 200, f"PUT failed: {put.data}"
+    assert put.json['id'] == contact_type_id
+    assert put.json['name'] == 'work_email'
+    assert put.json['description'] == 'Work email address'
+
+def test_delete_contact_type(client):
+    # Create a contact type via API
+    post = client.post('/api/contacttypes', json={
+        'name': 'email',
+        'description': 'Personal email address',
+    })
+    assert post.status_code == 201, f"POST failed: {post.data}"
+    contact_type_id = post.json['id']
+
+    # Delete the contact type via API
+    delete = client.delete(f'/api/contacttypes/{contact_type_id}')
+    assert delete.status_code == 200, f"DELETE failed: {delete.data}"
+
+    # Verify that the contact type is deleted
+    get = client.get(f'/api/contacttypes/{contact_type_id}')
+    assert get.status_code == 404, f"GET after DELETE should fail: {get.data}"

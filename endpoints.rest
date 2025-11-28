@@ -55,3 +55,15 @@ Content-Type: application/json
 {
     "name": "phone"
 }
+
+###
+PUT {{api}}/contacttypes/1
+Content-Type: application/json
+
+{
+    "description": "Personal Email Address"
+}
+
+###
+DELETE {{api}}/contacttypes/2
+Content-Type: application/json
