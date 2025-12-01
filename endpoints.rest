@@ -67,3 +67,32 @@ Content-Type: application/json
 ###
 DELETE {{api}}/contacttypes/2
 Content-Type: application/json
+
+### 
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "paolo.salazar@example.com",
+    "password": "salazars"
+}
+
+### 
+POST {{api}}/auth/register
+Content-Type: application/json
+
+{
+    "name": "maria",
+    "last_name": "lopez",
+    "email": "maria.lopez@example.com",
+    "password": "lopez"
+}
+
+### 
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "maria.lopez@example.com",
+    "password": "lopez"
+}

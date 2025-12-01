@@ -7,11 +7,13 @@ try:
     from schemas.user_schema import UserSchema
     from services.user_service import create_user, get_user, get_all_users, update_user, delete_user
     from exceptions.user_exceptions import UserException
+    from utils.auth import jwt_required
 except ImportError:
     from src.models.user import User
     from src.schemas.user_schema import UserSchema
     from src.services.user_service import create_user, get_user, get_all_users, update_user, delete_user
     from src.exceptions.user_exceptions import UserException
+    from src.utils.auth import jwt_required
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
@@ -45,6 +47,7 @@ class UserResource(Resource):
             logger.error(f"User creation failed: {e.message}")
             return {'error': e.message}, e.status_code
 
+    @jwt_required
     def put(self, user_id):
         try:
             logger.info(f"PUT request to update user {user_id}")
@@ -60,6 +63,7 @@ class UserResource(Resource):
             logger.error(f"User update failed: {e.message}")
             return {'error': e.message}, e.status_code
 
+    @jwt_required
     def delete(self, user_id):
         logger.info(f"DELETE request for user {user_id}")
         if delete_user(user_id):

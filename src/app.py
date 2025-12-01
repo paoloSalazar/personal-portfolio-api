@@ -14,14 +14,14 @@ from flask_migrate import Migrate
 try:
     from config import Config
     from routes.api import api_bp
-    from utils.extensions import db
+    from utils.extensions import db, jwt
     # Import models to ensure they are registered with SQLAlchemy
     from models.user import User
     from models.contact_type import ContactType
 except ImportError:
     from .config import Config
     from .routes.api import api_bp
-    from .utils.extensions import db
+    from .utils.extensions import db, jwt
     # Import models to ensure they are registered with SQLAlchemy
     from .models.user import User
     from .models.contact_type import ContactType
@@ -54,6 +54,7 @@ def create_app(config_class=None):
 
     # Initialize extensions
     db.init_app(app)
+    jwt.init_app(app)
     migrate = Migrate(app, db)
 
     # Initialize CORS for React frontend integration
