@@ -1,5 +1,5 @@
 @api = http://localhost:5000/api
-
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NDc2MTg1NCwianRpIjoiNWU2OWJmZGEtNzgzZi00YWVlLTk5MTQtOGY0ODNlNmQxOGZiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjUiLCJuYmYiOjE3NjQ3NjE4NTQsImNzcmYiOiI0MmM1Y2VmYS1hYjIxLTQzOTQtYmEyMy00NDhkOThlZTBkZTgiLCJleHAiOjE3NjQ3NjI3NTR9.iAmOpUFsQeVyRRdmrn8deP4jtivTw-37a0R9fWj4clU
 GET {{api}}/users
 Content-Type: application/json
 
@@ -39,21 +39,24 @@ Content-Type: application/json
 GET {{api}}/contacttypes/1
 Content-Type: application/json
 
-### 
+###
+# NOTE: POST /contacttypes now requires authentication
 POST {{api}}/contacttypes
 Content-Type: application/json
+Authorization: Bearer {{user_token}}
 
 {
     "name": "email",
     "description": "Contact via email"
 }
 
-### 
+###
 POST {{api}}/contacttypes
 Content-Type: application/json
+Authorization: Bearer {{user_token}}
 
 {
-    "name": "phone"
+    "name": "phonese"
 }
 
 ###
@@ -93,6 +96,6 @@ POST {{api}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "maria.lopez@example.com",
-    "password": "lopez"
+    "email": "paolo.salazar@example.com",
+    "password": "salazar"
 }

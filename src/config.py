@@ -5,7 +5,8 @@ class Config:
     TESTING = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = os.environ.get('SECRET_KEY', 'your_secret_key_here')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+
     JSON_SORT_KEYS = False
 
     # CORS settings
@@ -15,7 +16,7 @@ class Config:
     CORS_SUPPORTS_CREDENTIALS = True
 
     # JWT settings
-    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', SECRET_KEY)
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
     # Logging
@@ -39,11 +40,11 @@ class ProductionConfig(Config):
     CORS_ORIGINS = os.environ.get('CORS_ORIGINS', 'https://yourdomain.com').split(',')
 
     # Production security settings
-    # SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     # if not SECRET_KEY:
     #     raise ValueError("SECRET_KEY environment variable is required in production")
 
-    # JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
     # if not JWT_SECRET_KEY:
     #     raise ValueError("JWT_SECRET_KEY environment variable is required in production")
 

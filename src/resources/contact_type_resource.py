@@ -7,11 +7,13 @@ try:
     from schemas.contact_type_schema import ContactTypeSchema
     from services.contact_type_service import create_contact_type, get_all_contact_types, get_contact_type_by_id, update_contact_type, delete_contact_type
     from exceptions.contact_type_exceptions import ContactTypeException, ContactTypeNotFoundException
+    from utils.auth import jwt_required
 except ImportError:
     from src.models.contact_type import ContactType
     from src.schemas.contact_type_schema import ContactTypeSchema
     from src.services.contact_type_service import create_contact_type, get_all_contact_types, get_contact_type_by_id, update_contact_type, delete_contact_type
     from src.exceptions.contact_type_exceptions import ContactTypeException, ContactTypeNotFoundException
+    from src.utils.auth import jwt_required
 
 contact_type_schema = ContactTypeSchema()
 contact_types_schema = ContactTypeSchema(many=True)
@@ -19,6 +21,7 @@ contact_types_schema = ContactTypeSchema(many=True)
 logger = logging.getLogger(__name__)
 
 class ContactTypeResource(Resource):
+    @jwt_required
     def post(self):
         try:
             logger.info("POST request to create contact type")

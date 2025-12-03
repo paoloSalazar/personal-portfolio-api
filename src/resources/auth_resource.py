@@ -37,8 +37,8 @@ class AuthResource(Resource):
             logger.info(f"User registered with ID: {user.id}")
 
             # Create tokens
-            access_token = create_access_token(identity=user.id)
-            refresh_token = create_refresh_token(identity=user.id)
+            access_token = create_access_token(identity=str(user.id))
+            refresh_token = create_refresh_token(identity=str(user.id))
 
             return {
                 'message': 'User registered successfully',
@@ -72,8 +72,8 @@ class AuthResource(Resource):
             user = verify_password(login_data['email'], login_data['password'])
             if user:
                 # Create tokens
-                access_token = create_access_token(identity=user.id)
-                refresh_token = create_refresh_token(identity=user.id)
+                access_token = create_access_token(identity=str(user.id))
+                refresh_token = create_refresh_token(identity=str(user.id))
 
                 logger.info(f"User {user.email} logged in successfully")
                 return {
