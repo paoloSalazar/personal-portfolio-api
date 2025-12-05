@@ -46,7 +46,7 @@ Content-Type: application/json
 Authorization: Bearer {{user_token}}
 
 {
-    "name": "email",
+    "name": "emailnew",
     "description": "Contact via email"
 }
 
@@ -98,4 +98,13 @@ Content-Type: application/json
 {
     "email": "paolo.salazar@example.com",
     "password": "salazar"
+}
+
+### 
+POST {{api}}/skills
+Content-Type: application/json
+
+{
+    "name": "Python",
+    "description": "Advanced"
 }

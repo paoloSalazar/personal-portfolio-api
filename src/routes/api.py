@@ -4,10 +4,12 @@ try:
     from resources.user_resource import UserResource
     from resources.contact_type_resource import ContactTypeResource
     from resources.auth_resource import AuthResource
+    from resources.skill_resource import SkillResource
 except ImportError:
     from src.resources.user_resource import UserResource
     from src.resources.contact_type_resource import ContactTypeResource
     from src.resources.auth_resource import AuthResource
+    from src.resources.skill_resource import SkillResource
 
 api_bp = Blueprint('api', __name__)
 
@@ -21,3 +23,7 @@ api_bp.add_url_rule('/auth/<action>', view_func=AuthResource.as_view('auth'), me
 # ContactType routes
 api_bp.add_url_rule('/contacttypes', view_func=ContactTypeResource.as_view('contacttypes'), methods=['GET', 'POST'])
 api_bp.add_url_rule('/contacttypes/<int:id>', view_func=ContactTypeResource.as_view('contacttype'), methods=['GET','PUT', 'DELETE'])
+
+# Skill routes
+api_bp.add_url_rule('/skills', view_func=SkillResource.as_view('skills'), methods=['GET','POST'])
+api_bp.add_url_rule('/skills/<int:id>', view_func=SkillResource.as_view('skill'), methods=['GET','PUT', 'DELETE'])

@@ -18,6 +18,7 @@ try:
     # Import models to ensure they are registered with SQLAlchemy
     from models.user import User
     from models.contact_type import ContactType
+    from models.skill import Skill
 except ImportError:
     from .config import Config
     from .routes.api import api_bp
@@ -25,6 +26,8 @@ except ImportError:
     # Import models to ensure they are registered with SQLAlchemy
     from .models.user import User
     from .models.contact_type import ContactType
+    from .models.skill import Skill
+
 
 logger = logging.getLogger(__name__)
 
