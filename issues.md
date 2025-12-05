@@ -42,3 +42,25 @@ def client(app):
     return app.test_client()
 ```
 
+### authentications not working
+Getting Authentication failed when using a protected endpoint
+```json
+POST {{api}}/contacttypes
+Content-Type: application/json
+Authorization: Bearer {{user_token}}
+
+{
+    "name": "emailnew",
+    "description": "Contact via email"
+}
+```
+response
+```
+
+FIX
+auth_resource.py
+```python
+# convert identity to str
+access_token = create_access_token(identity=str(user.id))
+refresh_token = create_refresh_token(identity=str(user.id))
+```
