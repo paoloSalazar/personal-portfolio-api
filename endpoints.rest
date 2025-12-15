@@ -100,11 +100,20 @@ Content-Type: application/json
     "password": "salazar"
 }
 
-### 
+###
 POST {{api}}/skills
 Content-Type: application/json
 
 {
     "name": "Python",
     "description": "Advanced"
+}
+
+###
+POST {{api}}/users/1/skills
+Content-Type: application/json
+Authorization: Bearer {{user_token}}
+
+{
+    "skill_id": 1
 }
