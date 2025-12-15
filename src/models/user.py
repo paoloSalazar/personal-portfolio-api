@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
 try:
     from utils.extensions import db
@@ -16,6 +17,8 @@ class User(db.Model):
     password = Column(String(255), nullable=False)
     created_at = Column(db.DateTime, server_default=db.func.now())
     updated_at = Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
+
+    skills = relationship('Skill', secondary='user_skills', back_populates='users')
 
     def __init__(self, name, last_name, second_last_name, email, password):
         self.name = name

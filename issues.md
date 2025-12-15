@@ -64,3 +64,27 @@ auth_resource.py
 access_token = create_access_token(identity=str(user.id))
 refresh_token = create_refresh_token(identity=str(user.id))
 ```
+
+### duplicated migration revisions and heads
+```bash
+$ flask db upgrade
+INFO [alembic.runtime.migration] Context impl MySQLImpl.
+INFO [alembic.runtime.migration] Will assume non-transactional DDL.
+ERROR [flask_migrate] Error: Multiple head revisions are present for given argument 'head'; please specify a specific target revision, '<branchname>@head' to narrow to a specific head, or 'heads' for all heads
+```
+FIX
+
+```bash
+flask db heads  
+466f168ada4d (head)
+added_user_skill_entity (head)
+```
+
+```bash
+$ flask db upgrade
+INFO  [alembic.runtime.migration] Context impl MySQLImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 4c28f9c63b2a -> added_user_skill_entity, added user_skill entity
+INFO  [alembic.runtime.migration] Running upgrade 4c28f9c63b2a -> 466f168ada4d, added user_skill entity for many-to-many relationship
+INFO  [alembic.runtime.migration] Running upgrade 466f168ada4d, added_user_skill_entity -> c0195dad3c62, Merge heads
+```

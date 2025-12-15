@@ -19,6 +19,7 @@ try:
     from models.user import User
     from models.contact_type import ContactType
     from models.skill import Skill
+    from models.user_skill import UserSkill
 except ImportError:
     from .config import Config
     from .routes.api import api_bp
@@ -27,6 +28,7 @@ except ImportError:
     from .models.user import User
     from .models.contact_type import ContactType
     from .models.skill import Skill
+    from .models.user_skill import UserSkill
 
 
 logger = logging.getLogger(__name__)

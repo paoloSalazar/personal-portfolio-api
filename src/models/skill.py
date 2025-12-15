@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
 try:
     from utils.extensions import db
@@ -13,6 +14,8 @@ class Skill(db.Model):
     description = Column(String(255), nullable=True)
     created_at = Column(db.DateTime, server_default=db.func.now())
     updated_at = Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
+
+    users = relationship('User', secondary='user_skills', back_populates='skills')
 
     def __init__(self, name, description):
         self.name = name
