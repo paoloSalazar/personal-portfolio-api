@@ -91,3 +91,68 @@ def test_get_user_skills_nonexistent_user(client, app):
 
         response = client.get('/users/999/skills', headers=headers)
         assert response.status_code == 404
+
+def test_get_user_skills_unauthorized(client, app):
+    with app.app_context():
+        # Create two users
+        user_data1 = {'name': 'User 1', 'last_name': 'Last', 'email': 'user1@example.com', 'password': 'password'}
+        user_data2 = {'name': 'User 2', 'last_name': 'Last', 'email': 'user2@example.com', 'password': 'password'}
+        user1 = create_user(user_data1)
+        user2 = create_user(user_data2)
+
+        # Login as user1
+        login_response = client.post('/auth/login', json={'email': 'user1@example.com', 'password': 'password'})
+        token = login_response.get_json()['access_token']
+
+        headers = {'Authorization': f'Bearer {token}'}
+
+        # Try to access user2's skills
+        response = client.get(f'/users/{user2.id}/skills', headers=headers)
+        assert response.status_code == 403
+        assert response.get_json()['error'] == 'Unauthorized to access this user\'s skills'
+
+def test_assign_skill_unauthorized(client, app):
+    with app.app_context():
+        # Create two users and a skill
+        user_data1 = {'name': 'User 1', 'last_name': 'Last', 'email': 'user1@example.com', 'password': 'password'}
+        user_data2 = {'name': 'User 2', 'last_name': 'Last', 'email': 'user2@example.com', 'password': 'password'}
+        user1 = create_user(user_data1)
+        user2 = create_user(user_data2)
+        skill_data = {'name': 'Test Skill', 'description': 'Test Description'}
+        skill = create_skill(skill_data)
+
+        # Login as user1
+        login_response = client.post('/auth/login', json={'email': 'user1@example.com', 'password': 'password'})
+        token = login_response.get_json()['access_token']
+
+        headers = {'Authorization': f'Bearer {token}'}
+
+        # Try to assign skill to user2
+        response = client.post(f'/users/{user2.id}/skills', json={'skill_id': skill.id}, headers=headers)
+        assert response.status_code == 403
+        assert response.get_json()['error'] == 'Unauthorized to modify this user\'s skills'
+
+def test_remove_skill_unauthorized(client, app):
+    with app.app_context():
+        # Create two users and a skill
+        user_data1 = {'name': 'User 1', 'last_name': 'Last', 'email': 'user1@example.com', 'password': 'password'}
+        user_data2 = {'name': 'User 2', 'last_name': 'Last', 'email': 'user2@example.com', 'password': 'password'}
+        user1 = create_user(user_data1)
+        user2 = create_user(user_data2)
+        skill_data = {'name': 'Test Skill', 'description': 'Test Description'}
+        skill = create_skill(skill_data)
+
+        # Assign skill to user2
+        from src.services.user_skill_service import assign_skill_to_user
+        assign_skill_to_user(user2.id, skill.id)
+
+        # Login as user1
+        login_response = client.post('/auth/login', json={'email': 'user1@example.com', 'password': 'password'})
+        token = login_response.get_json()['access_token']
+
+        headers = {'Authorization': f'Bearer {token}'}
+
+        # Try to remove skill from user2
+        response = client.delete(f'/users/{user2.id}/skills/{skill.id}', headers=headers)
+        assert response.status_code == 403
+        assert response.get_json()['error'] == 'Unauthorized to modify this user\'s skills'
