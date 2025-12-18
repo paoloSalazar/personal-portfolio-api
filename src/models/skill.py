@@ -11,15 +11,13 @@ class Skill(db.Model):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
-    description = Column(String(255), nullable=True)
     created_at = Column(db.DateTime, server_default=db.func.now())
     updated_at = Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     users = relationship('User', secondary='user_skills', back_populates='skills')
 
-    def __init__(self, name, description):
+    def __init__(self, name):
         self.name = name
-        self.description = description  
 
     def __repr__(self):
         return f'<Skill {self.name}>'

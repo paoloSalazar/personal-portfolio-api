@@ -8,8 +8,8 @@ def test_get_user_skills(client, app):
         # Create user and skills
         user_data = {'name': 'Test User', 'last_name': 'Last', 'email': 'test@example.com', 'password': 'password'}
         user = create_user(user_data)
-        skill_data1 = {'name': 'Skill 1', 'description': 'Desc 1'}
-        skill_data2 = {'name': 'Skill 2', 'description': 'Desc 2'}
+        skill_data1 = {'name': 'Skill 1'}
+        skill_data2 = {'name': 'Skill 2'}
         skill1 = create_skill(skill_data1)
         skill2 = create_skill(skill_data2)
 
@@ -63,7 +63,7 @@ def test_remove_skill_from_user(client, app):
     with app.app_context():
         user_data = {'name': 'Test User', 'last_name': 'Last', 'email': 'test@example.com', 'password': 'password'}
         user = create_user(user_data)
-        skill_data = {'name': 'Test Skill', 'description': 'Test Description'}
+        skill_data = {'name': 'Test Skill'}
         skill = create_skill(skill_data)
 
         from src.services.user_skill_service import assign_skill_to_user

@@ -21,8 +21,7 @@ def create_skill(data):
     try:
         # Create skill instance directly instead of using schema.load
         new_skill = Skill(
-            name=data['name'],
-            description=data['description']
+            name=data['name']
         )
 
         db.session.add(new_skill)

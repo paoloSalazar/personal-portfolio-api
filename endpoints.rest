@@ -1,5 +1,5 @@
 @api = http://localhost:5000/api
-@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NDc2MTg1NCwianRpIjoiNWU2OWJmZGEtNzgzZi00YWVlLTk5MTQtOGY0ODNlNmQxOGZiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjUiLCJuYmYiOjE3NjQ3NjE4NTQsImNzcmYiOiI0MmM1Y2VmYS1hYjIxLTQzOTQtYmEyMy00NDhkOThlZTBkZTgiLCJleHAiOjE3NjQ3NjI3NTR9.iAmOpUFsQeVyRRdmrn8deP4jtivTw-37a0R9fWj4clU
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NTgwNjkzOCwianRpIjoiN2IwNWQ4MzktMmZkYi00NWYwLTgxNmEtMjA3ZmJjNzBlNjEzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjUiLCJuYmYiOjE3NjU4MDY5MzgsImNzcmYiOiI0N2Y1MDUyZS04NGUyLTQ2YjctOTM2Zi03YWFhZjVhMjMzZWEiLCJleHAiOjE3NjU4MDc4Mzh9.6qNmBHupYthoo5bRYxZR5MrDDxO2u25LNRceM3Y0x4I
 GET {{api}}/users
 Content-Type: application/json
 
@@ -77,7 +77,7 @@ Content-Type: application/json
 
 {
     "email": "paolo.salazar@example.com",
-    "password": "salazars"
+    "password": "salazar"
 }
 
 ### 
@@ -105,15 +105,15 @@ POST {{api}}/skills
 Content-Type: application/json
 
 {
-    "name": "Python",
-    "description": "Advanced"
+    "name": "Java",
+    "description": "Intermediate"
 }
 
 ###
-POST {{api}}/users/1/skills
+POST {{api}}/users/3/skills
 Content-Type: application/json
 Authorization: Bearer {{user_token}}
 
 {
-    "skill_id": 1
+    "skill_id": 2
 }

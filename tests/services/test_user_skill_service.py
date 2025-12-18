@@ -9,7 +9,7 @@ def test_assign_skill_to_user(app):
         # Create user and skill
         user_data = {'name': 'Test User', 'last_name': 'Last', 'email': 'test@example.com', 'password': 'password'}
         user = create_user(user_data)
-        skill_data = {'name': 'Test Skill', 'description': 'Test Description'}
+        skill_data = {'name': 'Test Skill'}
         skill = create_skill(skill_data)
 
         # Assign skill
@@ -35,7 +35,7 @@ def test_assign_duplicate_skill(app):
     with app.app_context():
         user_data = {'name': 'Test User', 'last_name': 'Last', 'email': 'test@example.com', 'password': 'password'}
         user = create_user(user_data)
-        skill_data = {'name': 'Test Skill', 'description': 'Test Description'}
+        skill_data = {'name': 'Test Skill'}
         skill = create_skill(skill_data)
 
         assign_skill_to_user(user.id, skill.id)
@@ -47,7 +47,7 @@ def test_remove_skill_from_user(app):
     with app.app_context():
         user_data = {'name': 'Test User', 'last_name': 'Last', 'email': 'test@example.com', 'password': 'password'}
         user = create_user(user_data)
-        skill_data = {'name': 'Test Skill', 'description': 'Test Description'}
+        skill_data = {'name': 'Test Skill'}
         skill = create_skill(skill_data)
 
         assign_skill_to_user(user.id, skill.id)
@@ -58,7 +58,7 @@ def test_remove_nonexistent_skill_assignment(app):
     with app.app_context():
         user_data = {'name': 'Test User', 'last_name': 'Last', 'email': 'test@example.com', 'password': 'password'}
         user = create_user(user_data)
-        skill_data = {'name': 'Test Skill', 'description': 'Test Description'}
+        skill_data = {'name': 'Test Skill'}
         skill = create_skill(skill_data)
 
         with pytest.raises(SkillException) as exc_info:
@@ -69,8 +69,8 @@ def test_get_user_skills(app):
     with app.app_context():
         user_data = {'name': 'Test User', 'last_name': 'Last', 'email': 'test@example.com', 'password': 'password'}
         user = create_user(user_data)
-        skill_data1 = {'name': 'Skill 1', 'description': 'Desc 1'}
-        skill_data2 = {'name': 'Skill 2', 'description': 'Desc 2'}
+        skill_data1 = {'name': 'Skill 1'}
+        skill_data2 = {'name': 'Skill 2'}
         skill1 = create_skill(skill_data1)
         skill2 = create_skill(skill_data2)
 
@@ -95,7 +95,7 @@ def test_get_skill_users(app):
         user_data2 = {'name': 'User 2', 'last_name': 'Last', 'email': 'user2@example.com', 'password': 'password'}
         user1 = create_user(user_data1)
         user2 = create_user(user_data2)
-        skill_data = {'name': 'Test Skill', 'description': 'Test Description'}
+        skill_data = {'name': 'Test Skill'}
         skill = create_skill(skill_data)
 
         assign_skill_to_user(user1.id, skill.id)

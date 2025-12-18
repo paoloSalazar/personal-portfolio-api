@@ -26,7 +26,7 @@ def test_post_user_skills_route(client, app):
     with app.app_context():
         user_data = {'name': 'Test User', 'last_name': 'Last', 'email': 'test@example.com', 'password': 'password'}
         user = create_user(user_data)
-        skill_data = {'name': 'Test Skill', 'description': 'Test Description'}
+        skill_data = {'name': 'Test Skill'}
         skill = create_skill(skill_data)
 
         login_response = client.post('/auth/login', json={'email': 'test@example.com', 'password': 'password'})
