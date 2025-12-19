@@ -1,5 +1,5 @@
 @api = http://localhost:5000/api
-@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NjA1NTc2MCwianRpIjoiMjJhMDFkNDAtY2I4Ni00ZjFjLWEwODItNmQ0NzQzNzNiYTk5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjUiLCJuYmYiOjE3NjYwNTU3NjAsImNzcmYiOiJhODA3ODMyYi1kNTg0LTRlOTMtOGYyZS0xNzJkNDVlNWZlYzgiLCJleHAiOjE3NjYwNTY2NjB9.fQ3rORY-BSiFI1H0MUc8xDLQj5TSYyPdDoFEicvo8gs
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NjEzNDM4MCwianRpIjoiZWU3YjVhMDktYTE3MC00YmZjLWI5N2EtZmEyZDBhN2ZmOWFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjUiLCJuYmYiOjE3NjYxMzQzODAsImNzcmYiOiIyYWM1ODEzOS1lY2M5LTQzMjItOTg2Zi00YmI1MjYwZGYzNzYiLCJleHAiOjE3NjYxMzUyODB9.n23nhZ5k3G9Txgy5YFnAnB-twtxEcuRTHknETfFUjpE
 GET {{api}}/users
 Content-Type: application/json
 
@@ -46,8 +46,8 @@ Content-Type: application/json
 Authorization: Bearer {{user_token}}
 
 {
-    "name": "emailnew",
-    "description": "Contact via email"
+    "name": "whatsapp",
+    "description": "Whatsapp Number"
 }
 
 ###
