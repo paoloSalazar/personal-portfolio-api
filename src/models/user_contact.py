@@ -12,7 +12,7 @@ class UserContact(db.Model):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     contacttype_id = Column(Integer, ForeignKey('contact_types.id'), nullable=False)
-    value = Column(String(255), nullable=False)
+    link_or_number = Column(String(255), nullable=False)
     created_at = Column(db.DateTime, server_default=db.func.now())
     updated_at = Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 

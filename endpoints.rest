@@ -1,5 +1,5 @@
 @api = http://localhost:5000/api
-@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NjEzNDM4MCwianRpIjoiZWU3YjVhMDktYTE3MC00YmZjLWI5N2EtZmEyZDBhN2ZmOWFiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjUiLCJuYmYiOjE3NjYxMzQzODAsImNzcmYiOiIyYWM1ODEzOS1lY2M5LTQzMjItOTg2Zi00YmI1MjYwZGYzNzYiLCJleHAiOjE3NjYxMzUyODB9.n23nhZ5k3G9Txgy5YFnAnB-twtxEcuRTHknETfFUjpE
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NjE0MTQwMCwianRpIjoiMzYyNWU4MjMtYTBiMi00NTkzLWJhMzItMjA0OGVlMmJmMDAzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjUiLCJuYmYiOjE3NjYxNDE0MDAsImNzcmYiOiJlNzc0OGZiNi1lNmE4LTRhOGItOWFkYS04NmQ4YmVhMTUxNGIiLCJleHAiOjE3NjYxNDIzMDB9.u4A3jLya6AvHjyfMBZFtjPViEmB_1-6yk2navNi4SGo
 GET {{api}}/users
 Content-Type: application/json
 
@@ -121,3 +121,13 @@ Authorization: Bearer {{user_token}}
 GET {{api}}/users/5/skills
 Content-Type: application/json
 Authorization: Bearer {{user_token}}
+
+###
+POST {{api}}/users/5/contacts
+Content-Type: application/json
+Authorization: Bearer {{user_token}}
+
+{
+    "contacttype_id": 17,
+    "link_or_number": "+1234567890"
+}

@@ -6,12 +6,14 @@ try:
     from resources.auth_resource import AuthResource
     from resources.skill_resource import SkillResource
     from resources.user_skill_resource import UserSkillResource
+    from resources.user_contact_resource import UserContactResource
 except ImportError:
     from src.resources.user_resource import UserResource
     from src.resources.contact_type_resource import ContactTypeResource
     from src.resources.auth_resource import AuthResource
     from src.resources.skill_resource import SkillResource
     from src.resources.user_skill_resource import UserSkillResource
+    from src.resources.user_contact_resource import UserContactResource
 
 api_bp = Blueprint('api', __name__)
 
@@ -33,3 +35,7 @@ api_bp.add_url_rule('/skills/<int:id>', view_func=SkillResource.as_view('skill')
 # User Skill routes
 api_bp.add_url_rule('/users/<int:user_id>/skills', view_func=UserSkillResource.as_view('user_skills'), methods=['GET', 'POST'])
 api_bp.add_url_rule('/users/<int:user_id>/skills/<int:skill_id>', view_func=UserSkillResource.as_view('user_skill'), methods=['DELETE'])
+
+# User Contact routes
+api_bp.add_url_rule('/users/<int:user_id>/contacts', view_func=UserContactResource.as_view('user_contacts'), methods=['GET', 'POST'])
+api_bp.add_url_rule('/users/<int:user_id>/contacts/<int:contact_id>', view_func=UserContactResource.as_view('user_contact'), methods=['GET', 'PUT', 'DELETE'])
