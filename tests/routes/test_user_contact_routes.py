@@ -16,15 +16,15 @@ def test_create_user_contact_route(client, app):
         headers = {'Authorization': f'Bearer {token}'}
 
         # Create contact via API
-        response = client.post(f'/users/{user.id}/contacts', json={
+        response = client.post(f'/api/users/{user.id}/contacts', json={
             'contacttype_id': contact_type.id,
-            'link_or_phone': '+1234567890'
+            'link_or_number': '+1234567890'
         }, headers=headers)
         assert response.status_code == 201, f"POST failed: {response.data}"
         assert 'id' in response.json
         assert response.json['user_id'] == user.id
         assert response.json['contacttype_id'] == contact_type.id
-        assert response.json['link_or_phone'] == '+1234567890'
+        assert response.json['link_or_number'] == '+1234567890'
 
 def test_get_user_contacts_route(client, app):
     with app.app_context():
@@ -41,20 +41,20 @@ def test_get_user_contacts_route(client, app):
         headers = {'Authorization': f'Bearer {token}'}
 
         # Create contacts via API
-        post1 = client.post(f'/users/{user.id}/contacts', json={
+        post1 = client.post(f'/api/users/{user.id}/contacts', json={
             'contacttype_id': phone_type.id,
-            'value': '+1234567890'
+            'link_or_number': '+1234567890'
         }, headers=headers)
         assert post1.status_code == 201, f"POST failed: {post1.data}"
 
-        post2 = client.post(f'/users/{user.id}/contacts', json={
+        post2 = client.post(f'/api/users/{user.id}/contacts', json={
             'contacttype_id': email_type.id,
-            'value': 'test@example.com'
+            'link_or_number': 'test@example.com'
         }, headers=headers)
         assert post2.status_code == 201, f"POST failed: {post2.data}"
 
         # Get all contacts
-        response = client.get(f'/users/{user.id}/contacts', headers=headers)
+        response = client.get(f'/api/users/{user.id}/contacts', headers=headers)
         assert response.status_code == 200, f"GET failed: {response.data}"
         assert len(response.json) == 2
 
@@ -72,17 +72,17 @@ def test_get_user_contact_by_id_route(client, app):
         headers = {'Authorization': f'Bearer {token}'}
 
         # Create contact via API
-        post_response = client.post(f'/users/{user.id}/contacts', json={
+        post_response = client.post(f'/api/users/{user.id}/contacts', json={
             'contacttype_id': contact_type.id,
-            'value': '+1234567890'
+            'link_or_number': '+1234567890'
         }, headers=headers)
         assert post_response.status_code == 201
         contact_id = post_response.json['id']
 
         # Get specific contact
-        response = client.get(f'/users/{user.id}/contacts/{contact_id}', headers=headers)
+        response = client.get(f'/api/users/{user.id}/contacts/{contact_id}', headers=headers)
         assert response.status_code == 200, f"GET failed: {response.data}"
-        assert response.json['value'] == '+1234567890'
+        assert response.json['link_or_number'] == '+1234567890'
         assert response.json['id'] == contact_id
 
 def test_update_user_contact_route(client, app):
@@ -99,19 +99,19 @@ def test_update_user_contact_route(client, app):
         headers = {'Authorization': f'Bearer {token}'}
 
         # Create contact via API
-        post_response = client.post(f'/users/{user.id}/contacts', json={
+        post_response = client.post(f'/api/users/{user.id}/contacts', json={
             'contacttype_id': contact_type.id,
-            'value': '+1234567890'
+            'link_or_number': '+1234567890'
         }, headers=headers)
         assert post_response.status_code == 201
         contact_id = post_response.json['id']
 
         # Update contact
-        response = client.put(f'/users/{user.id}/contacts/{contact_id}', json={
-            'value': '+0987654321'
+        response = client.put(f'/api/users/{user.id}/contacts/{contact_id}', json={
+            'link_or_number': '+0987654321'
         }, headers=headers)
         assert response.status_code == 200, f"PUT failed: {response.data}"
-        assert response.json['value'] == '+0987654321'
+        assert response.json['link_or_number'] == '+0987654321'
 
 def test_delete_user_contact_route(client, app):
     with app.app_context():
@@ -127,14 +127,14 @@ def test_delete_user_contact_route(client, app):
         headers = {'Authorization': f'Bearer {token}'}
 
         # Create contact via API
-        post_response = client.post(f'/users/{user.id}/contacts', json={
+        post_response = client.post(f'/api/users/{user.id}/contacts', json={
             'contacttype_id': contact_type.id,
-            'value': '+1234567890'
+            'link_or_number': '+1234567890'
         }, headers=headers)
         assert post_response.status_code == 201
         contact_id = post_response.json['id']
 
         # Delete contact
-        response = client.delete(f'/users/{user.id}/contacts/{contact_id}', headers=headers)
+        response = client.delete(f'/api/users/{user.id}/contacts/{contact_id}', headers=headers)
         assert response.status_code == 200, f"DELETE failed: {response.data}"
         assert response.json['message'] == 'Contact deleted successfully'

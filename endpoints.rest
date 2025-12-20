@@ -131,3 +131,9 @@ Authorization: Bearer {{user_token}}
     "contacttype_id": 17,
     "link_or_number": "+1234567890"
 }
+
+###
+
+GET {{api}}/users/5/contacts
+Content-Type: application/json 
+Authorization: Bearer {{user_token}}
