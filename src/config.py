@@ -19,6 +19,11 @@ class Config:
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+    # Supabase settings
+    SUPABASE_URL = os.environ.get('SUPABASE_URL')
+    SUPABASE_ANON_KEY = os.environ.get('SUPABASE_ANON_KEY')
+    SUPABASE_BUCKET = os.environ.get('SUPABASE_BUCKET', 'profile-photos')
+
     # Logging
     LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
 

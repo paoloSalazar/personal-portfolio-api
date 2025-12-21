@@ -20,6 +20,7 @@ api_bp = Blueprint('api', __name__)
 ## User routes
 api_bp.add_url_rule('/users', view_func=UserResource.as_view('users'), methods=['GET', 'POST'])
 api_bp.add_url_rule('/users/<int:user_id>', view_func=UserResource.as_view('user'), methods=['GET', 'PUT', 'DELETE'])
+api_bp.add_url_rule('/users/<int:user_id>/upload-photo', view_func=UserResource.as_view('upload_photo'), methods=['POST'])
 
 # Auth routes
 api_bp.add_url_rule('/auth/<action>', view_func=AuthResource.as_view('auth'), methods=['POST'])

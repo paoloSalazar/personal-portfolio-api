@@ -8,3 +8,4 @@ class UserSchema(Schema):
     email = fields.Email(required=True)
     password = fields.Str(required=True, load_only=True)
     about_me = fields.Str(required=False, allow_none=True)
+    profile_photo_url = fields.Str(required=False, allow_none=True)

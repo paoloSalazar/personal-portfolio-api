@@ -65,6 +65,8 @@ def update_user(user_id, data):
             user.password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
         if 'about_me' in data:
             user.about_me = data['about_me']
+        if 'profile_photo_url' in data:
+            user.profile_photo_url = data['profile_photo_url']
 
         db.session.commit()
         return user
