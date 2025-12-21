@@ -11,4 +11,5 @@ PyMySQL
 cryptography
 Flask-Bcrypt
 flask-jwt-extended
+supabase
 python-dotenv

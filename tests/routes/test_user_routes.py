@@ -38,7 +38,8 @@ def test_create_user(client):
         'second_last_name': 'Jr',
         'email': 'john@example.com',
         'password': 'password123',
-        'about_me': 'I am John Doe'
+        'about_me': 'I am John Doe',
+        'profile_photo_url': 'https://example.com/photo.jpg'
     })
     assert response.status_code == 201, f"POST failed: {response.data}"
     assert 'id' in response.json
@@ -47,4 +48,6 @@ def test_create_user(client):
     assert 'second_last_name' in response.json
     assert 'email' in response.json
     assert 'about_me' in response.json
+    assert 'profile_photo_url' in response.json
     assert response.json['about_me'] == 'I am John Doe'
+    assert response.json['profile_photo_url'] == 'https://example.com/photo.jpg'
