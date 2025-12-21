@@ -18,12 +18,8 @@ skills_schema = SkillSchema(many=True)
 logger = logging.getLogger(__name__)
 
 class UserSkillResource(Resource):
-    @jwt_required
+
     def get(self, user_id):
-        current_user_id = str(get_current_user_id())
-        if str(user_id) != current_user_id:
-            logger.warning(f"User {current_user_id} attempted to access skills of user {user_id}")
-            return {'error': 'Unauthorized to access this user\'s skills'}, 403
 
         logger.info(f"GET request for user {user_id} skills")
         try:

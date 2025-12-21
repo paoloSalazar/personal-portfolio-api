@@ -1,5 +1,5 @@
 @api = http://localhost:5000/api
-@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NjE0MTQwMCwianRpIjoiMzYyNWU4MjMtYTBiMi00NTkzLWJhMzItMjA0OGVlMmJmMDAzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjUiLCJuYmYiOjE3NjYxNDE0MDAsImNzcmYiOiJlNzc0OGZiNi1lNmE4LTRhOGItOWFkYS04NmQ4YmVhMTUxNGIiLCJleHAiOjE3NjYxNDIzMDB9.u4A3jLya6AvHjyfMBZFtjPViEmB_1-6yk2navNi4SGo
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NjIyNDIzNCwianRpIjoiMThhZTE5NTUtNjg2Zi00MGM5LTg5N2UtMDViMjcxZTNkZmYzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjUiLCJuYmYiOjE3NjYyMjQyMzQsImNzcmYiOiI1OWQxMTA2My01YjFhLTRjZDUtYWRlNi1jOGI5MGZiZmY5NDgiLCJleHAiOjE3NjYyMjUxMzR9.E03G_a_0LfYxpKELzFrj6JK6r6Lt0Bcvm6JqDRfZY3k
 GET {{api}}/users
 Content-Type: application/json
 
@@ -128,8 +128,8 @@ Content-Type: application/json
 Authorization: Bearer {{user_token}}
 
 {
-    "contacttype_id": 17,
-    "link_or_number": "+1234567890"
+    "contacttype_id": 15,
+    "link_or_number": "https://github.com/paoloSalazar"
 }
 
 ###

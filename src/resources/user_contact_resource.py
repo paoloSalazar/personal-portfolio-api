@@ -25,12 +25,7 @@ user_contacts_schema = UserContactSchema(many=True)
 logger = logging.getLogger(__name__)
 
 class UserContactResource(Resource):
-    @jwt_required
     def get(self, user_id, contact_id=None):
-        current_user_id = str(get_current_user_id())
-        if str(user_id) != current_user_id:
-            logger.warning(f"User {current_user_id} attempted to access contacts of user {user_id}")
-            return {'error': 'Unauthorized to access this user\'s contacts'}, 403
 
         logger.info(f"GET request for user {user_id} contacts, contact_id: {contact_id}")
         try:
