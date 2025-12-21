@@ -27,7 +27,8 @@ def create_user(data):
             last_name=data['last_name'],
             second_last_name=data.get('second_last_name'),
             email=data['email'],
-            password=password_hash
+            password=password_hash,
+            about_me=data.get('about_me')
         )
 
         db.session.add(new_user)
@@ -62,6 +63,8 @@ def update_user(user_id, data):
             user.email = data['email']
         if 'password' in data:
             user.password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
+        if 'about_me' in data:
+            user.about_me = data['about_me']
 
         db.session.commit()
         return user

@@ -15,17 +15,19 @@ class User(db.Model):
     second_last_name = Column(String(100), nullable=True)
     email = Column(String(100), unique=True, nullable=False)
     password = Column(String(255), nullable=False)
+    about_me = Column(String(700), nullable=True)
     created_at = Column(db.DateTime, server_default=db.func.now())
     updated_at = Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     skills = relationship('Skill', secondary='user_skills', back_populates='users')
 
-    def __init__(self, name, last_name, second_last_name, email, password):
+    def __init__(self, name, last_name, second_last_name, email, password, about_me=None):
         self.name = name
         self.last_name = last_name
         self.second_last_name = second_last_name
         self.email = email
         self.password = password
+        self.about_me = about_me
 
     def __repr__(self):
         return f'<User {self.name} {self.last_name} {self.second_last_name}>'

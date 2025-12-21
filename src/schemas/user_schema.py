@@ -7,3 +7,4 @@ class UserSchema(Schema):
     second_last_name = fields.Str(required=False, allow_none=True)
     email = fields.Email(required=True)
     password = fields.Str(required=True, load_only=True)
+    about_me = fields.Str(required=False, allow_none=True)

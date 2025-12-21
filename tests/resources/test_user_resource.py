@@ -23,17 +23,18 @@ def test_user_resource_get_all(mock_get_all, mock_schema, app):
 @patch('src.resources.user_resource.create_user')
 @patch('src.resources.user_resource.request')
 def test_user_resource_post(mock_request, mock_create_user, mock_schema, app):
-    mock_request.get_json.return_value = {'name': 'New User', 'last_name': 'New Last', 'second_last_name': 'New Second', 'email': 'new@example.com', 'password': 'newpass'}
-    mock_user = type('MockUser', (), {'name': 'New User', 'last_name': 'New Last', 'second_last_name': 'New Second', 'email': 'new@example.com'})()
+    mock_request.get_json.return_value = {'name': 'New User', 'last_name': 'New Last', 'second_last_name': 'New Second', 'email': 'new@example.com', 'password': 'newpass', 'about_me': 'About new user'}
+    mock_user = type('MockUser', (), {'name': 'New User', 'last_name': 'New Last', 'second_last_name': 'New Second', 'email': 'new@example.com', 'about_me': 'About new user'})()
     mock_create_user.return_value = mock_user
-    mock_schema.dump.return_value = {'name': 'New User', 'last_name': 'New Last', 'second_last_name': 'New Second', 'email': 'new@example.com'}
+    mock_schema.dump.return_value = {'name': 'New User', 'last_name': 'New Last', 'second_last_name': 'New Second', 'email': 'new@example.com', 'about_me': 'About new user'}
 
     resource = UserResource()
     result, status = resource.post()
     assert status == 201
     assert result['name'] == 'New User'
     assert result['last_name'] == 'New Last'
-    mock_create_user.assert_called_once_with({'name': 'New User', 'last_name': 'New Last', 'second_last_name': 'New Second', 'email': 'new@example.com', 'password': 'newpass'})
+    assert result['about_me'] == 'About new user'
+    mock_create_user.assert_called_once_with({'name': 'New User', 'last_name': 'New Last', 'second_last_name': 'New Second', 'email': 'new@example.com', 'password': 'newpass', 'about_me': 'About new user'})
     mock_schema.dump.assert_called_once_with(mock_user)
 
 @patch('src.resources.user_resource.user_schema')

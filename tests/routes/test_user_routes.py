@@ -11,7 +11,8 @@ def test_get_all_users(client):
         'last_name': 'Last1',
         'second_last_name': 'Second1',
         'email': 'user1@example.com',
-        'password': 'password1'
+        'password': 'password1',
+        'about_me': 'About user 1'
     })
     assert post1.status_code == 201, f"POST failed: {post1.data}"
 
@@ -20,7 +21,8 @@ def test_get_all_users(client):
         'last_name': 'Last2',
         'second_last_name': 'Second2',
         'email': 'user2@example.com',
-        'password': 'password2'
+        'password': 'password2',
+        'about_me': 'About user 2'
     })
     assert post2.status_code == 201, f"POST failed: {post2.data}"
 
@@ -35,7 +37,8 @@ def test_create_user(client):
         'last_name': 'Doe',
         'second_last_name': 'Jr',
         'email': 'john@example.com',
-        'password': 'password123'
+        'password': 'password123',
+        'about_me': 'I am John Doe'
     })
     assert response.status_code == 201, f"POST failed: {response.data}"
     assert 'id' in response.json
@@ -43,3 +46,5 @@ def test_create_user(client):
     assert 'last_name' in response.json
     assert 'second_last_name' in response.json
     assert 'email' in response.json
+    assert 'about_me' in response.json
+    assert response.json['about_me'] == 'I am John Doe'
