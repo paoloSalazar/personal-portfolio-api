@@ -28,7 +28,8 @@ def create_user(data):
             second_last_name=data.get('second_last_name'),
             email=data['email'],
             password=password_hash,
-            about_me=data.get('about_me')
+            about_me=data.get('about_me'),
+            profile_photo_url=data.get('profile_photo_url')
         )
 
         db.session.add(new_user)

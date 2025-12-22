@@ -10,8 +10,10 @@ class SupabaseStorageService:
     def __init__(self):
         self.supabase_url = os.environ.get('SUPABASE_URL')
         self.supabase_key = os.environ.get('SUPABASE_ANON_KEY')
+        self.service_role_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY')
         self.bucket_name = os.environ.get('SUPABASE_BUCKET', 'profile-photos')
         self._supabase = None
+        self._supabase_service = None
 
     @property
     def supabase(self):
@@ -20,6 +22,14 @@ class SupabaseStorageService:
                 raise ValueError("SUPABASE_URL and SUPABASE_ANON_KEY environment variables are required")
             self._supabase = create_client(self.supabase_url, self.supabase_key)
         return self._supabase
+
+    @property
+    def supabase_service(self):
+        if self._supabase_service is None:
+            if not self.supabase_url or not self.service_role_key:
+                raise ValueError("SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables are required")
+            self._supabase_service = create_client(self.supabase_url, self.service_role_key)
+        return self._supabase_service
 
     def upload_profile_photo(self, file, user_id):
         """
@@ -61,16 +71,20 @@ class SupabaseStorageService:
         file_path = f"profile-photos/{unique_filename}"
 
         try:
-            # Upload file to Supabase
+            # Upload file to Supabase using service role key to bypass RLS
             file_content = file.read()
-            response = self.supabase.storage.from_(self.bucket_name).upload(
+            response = self.supabase_service.storage.from_(self.bucket_name).upload(
                 path=file_path,
                 file=file_content,
                 file_options={"content-type": f"image/{file_ext}"}
             )
 
-            if response.status_code != 200:
-                raise Exception(f"Upload failed with status {response.status_code}")
+            # Check if upload was successful (Supabase response structure)
+            if isinstance(response, dict):
+                if 'statusCode' in response and response['statusCode'] != 200:
+                    raise Exception(f"Upload failed with status {response['statusCode']}: {response.get('message', 'Unknown error')}")
+                elif 'error' in response:
+                    raise Exception(f"Upload failed: {response['error']} - {response.get('message', '')}")
 
             # Get public URL
             public_url = self.supabase.storage.from_(self.bucket_name).get_public_url(file_path)
@@ -99,7 +113,7 @@ class SupabaseStorageService:
             bucket_and_path = url_parts.split('/', 1)
             if len(bucket_and_path) == 2:
                 file_path = bucket_and_path[1]
-                response = self.supabase.storage.from_(self.bucket_name).remove([file_path])
+                response = self.supabase_service.storage.from_(self.bucket_name).remove([file_path])
                 return response.status_code == 200
             return False
         except Exception as e:

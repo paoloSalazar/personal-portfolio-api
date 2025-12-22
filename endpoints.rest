@@ -31,7 +31,45 @@ Content-Type: application/json
     "password": "rodriguez"
 }
 
-### 
+###
+
+# Register user with profile photo (multipart form data)
+# NOTE: Replace './path/to/your/profile-photo.jpg' with actual file path
+# Supported formats: png, jpg, jpeg, gif, webp (max 5MB)
+POST {{api}}/users
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="data"
+Content-Type: application/json
+
+{
+    "name": "ana",
+    "last_name": "garcia",
+    "email": "ana.garciae@example.com",
+    "password": "garcia123"
+}
+------WebKitFormBoundary
+Content-Disposition: form-data; name="photo"; filename="profile.jpg"
+Content-Type: image/jpeg
+
+< /Users/paolosalazar/Pictures/Bardock_recuperandose_en_una_capsula.png
+------WebKitFormBoundary--
+
+###
+
+# Register user without photo (JSON - backward compatible)
+POST {{api}}/users
+Content-Type: application/json
+
+{
+    "name": "carlos",
+    "last_name": "martinez",
+    "email": "carlos.martinez@example.com",
+    "password": "martinez123"
+}
+
+###
 GET {{api}}/contacttypes
 Content-Type: application/json
 
@@ -135,5 +173,19 @@ Authorization: Bearer {{user_token}}
 ###
 
 GET {{api}}/users/5/contacts
-Content-Type: application/json 
+Content-Type: application/json
 Authorization: Bearer {{user_token}}
+
+###
+
+# Upload profile photo for existing user (requires authentication)
+POST {{api}}/users/5/upload-photo
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+Authorization: Bearer {{user_token}}
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="photo"; filename="profile.jpg"
+Content-Type: image/jpeg
+
+< ./path/to/your/profile-photo.jpg
+------WebKitFormBoundary--
