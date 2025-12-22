@@ -65,14 +65,7 @@ def create_app(config_class=None):
     migrate = Migrate(app, db)
 
     # Initialize CORS for React frontend integration
-    CORS(app, resources={
-        r"/api/*": {
-            "origins": app.config['CORS_ORIGINS'],
-            "methods": app.config['CORS_METHODS'],
-            "allow_headers": app.config['CORS_HEADERS'],
-            "supports_credentials": app.config['CORS_SUPPORTS_CREDENTIALS']
-        }
-    })
+    CORS(app)
 
     # Create database tables (you can remove this when using migrations)
     # with app.app_context():
