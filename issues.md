@@ -88,3 +88,21 @@ INFO  [alembic.runtime.migration] Running upgrade 4c28f9c63b2a -> added_user_ski
 INFO  [alembic.runtime.migration] Running upgrade 4c28f9c63b2a -> 466f168ada4d, added user_skill entity for many-to-many relationship
 INFO  [alembic.runtime.migration] Running upgrade 466f168ada4d, added_user_skill_entity -> c0195dad3c62, Merge heads
 ```
+
+### flask db is not working
+```bash
+flask db upgrade
+Error: Could not import 'src.src.app'.
+
+Usage: flask [OPTIONS] COMMAND [ARGS]...
+Try 'flask --help' for help.
+
+Error: No such command 'db'.
+```
+import issues
+**temporary fix:**
+```bash
+cd src
+export FLASK_APP=app.py
+flask db upgrade
+```
