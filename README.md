@@ -117,6 +117,15 @@ To debug:
 
 The debugger will stop at your breakpoint in [create_user()]user_service.py ) function.
 
+
+## Supabase configuration to upload profile pictures .env file
+```
+SUPABASE_URL=<>
+SUPABASE_ANON_KEY=<>
+SUPABASE_SERVICE_ROLE_KEY=<>
+SUPABASE_BUCKET=<>
+```
+
 ## License
 
 This project is licensed under the MIT License.

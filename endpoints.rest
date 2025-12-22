@@ -5,7 +5,7 @@ Content-Type: application/json
 
 ###
 
-GET {{api}}/users/1
+GET {{api}}/users/9
 Content-Type: application/json
 
 ###
@@ -44,10 +44,11 @@ Content-Disposition: form-data; name="data"
 Content-Type: application/json
 
 {
-    "name": "ana",
-    "last_name": "garcia",
-    "email": "ana.garciae@example.com",
-    "password": "garcia123"
+    "name": "jorge",
+    "last_name": "perez",
+    "email": "jorge.perez@example.com",
+    "password": "perez",
+    "about_me": "Hello, I'm Jorge!"
 }
 ------WebKitFormBoundary
 Content-Disposition: form-data; name="photo"; filename="profile.jpg"
