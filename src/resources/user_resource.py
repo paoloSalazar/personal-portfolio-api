@@ -137,8 +137,9 @@ class UserResource(Resource):
         logger.warning(f"User {user_id} not found for deletion")
         return {'message': 'User not found'}, 404
 
+class UploadPhotoResource(Resource):
     @jwt_required
-    def upload_photo(self, user_id):
+    def post(self, user_id):
         try:
             logger.info(f"POST request to upload profile photo for user {user_id}")
 

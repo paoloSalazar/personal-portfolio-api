@@ -1,14 +1,14 @@
 from flask import Blueprint
 
 try:
-    from resources.user_resource import UserResource
+    from resources.user_resource import UserResource, UploadPhotoResource
     from resources.contact_type_resource import ContactTypeResource
     from resources.auth_resource import AuthResource
     from resources.skill_resource import SkillResource
     from resources.user_skill_resource import UserSkillResource
     from resources.user_contact_resource import UserContactResource
 except ImportError:
-    from src.resources.user_resource import UserResource
+    from src.resources.user_resource import UserResource, UploadPhotoResource
     from src.resources.contact_type_resource import ContactTypeResource
     from src.resources.auth_resource import AuthResource
     from src.resources.skill_resource import SkillResource
@@ -20,7 +20,7 @@ api_bp = Blueprint('api', __name__)
 ## User routes
 api_bp.add_url_rule('/users', view_func=UserResource.as_view('users'), methods=['GET', 'POST'])
 api_bp.add_url_rule('/users/<int:user_id>', view_func=UserResource.as_view('user'), methods=['GET', 'PUT', 'DELETE'])
-api_bp.add_url_rule('/users/<int:user_id>/upload-photo', view_func=UserResource.as_view('upload_photo'), methods=['POST'])
+api_bp.add_url_rule('/users/<int:user_id>/upload-photo', view_func=UploadPhotoResource.as_view('upload_photo'), methods=['POST'])
 
 # Auth routes
 api_bp.add_url_rule('/auth/<action>', view_func=AuthResource.as_view('auth'), methods=['POST'])

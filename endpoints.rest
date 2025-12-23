@@ -1,7 +1,5 @@
 @api = http://localhost:5000/api
-@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NjIyNDIzNCwianRpIjoiMThhZTE5NTUtNjg2Zi00MGM5LTg5N2UtMDViMjcxZTNkZmYzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjUiLCJuYmYiOjE3NjYyMjQyMzQsImNzcmYiOiI1OWQxMTA2My01YjFhLTRjZDUtYWRlNi1jOGI5MGZiZmY5NDgiLCJleHAiOjE3NjYyMjUxMzR9.E03G_a_0LfYxpKELzFrj6JK6r6Lt0Bcvm6JqDRfZY3k
-GET {{api}}/users
-Content-Type: application/json
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NjQ0NjEyMCwianRpIjoiYzg4ZTU0MDQtOWEzNi00YjRkLWJjYjEtMDExNzRmZjkzZWQ5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjY0NDYxMjAsImNzcmYiOiIzMDhkYjM1Zi04YTA4LTRiMjktODI2Yy02NmQzYmFiOTAwNTkiLCJleHAiOjE3NjY0NDcwMjB9.rXDI2h34NOOxjujKXcjKQCaK-rlpAKjWtt7GI3yB2yU
 
 ###
 
@@ -180,7 +178,7 @@ Authorization: Bearer {{user_token}}
 ###
 
 # Upload profile photo for existing user (requires authentication)
-POST {{api}}/users/5/upload-photo
+POST {{api}}/users/1/upload-photo
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
 Authorization: Bearer {{user_token}}
 
@@ -188,5 +186,5 @@ Authorization: Bearer {{user_token}}
 Content-Disposition: form-data; name="photo"; filename="profile.jpg"
 Content-Type: image/jpeg
 
-< ./path/to/your/profile-photo.jpg
+< /Users/paolosalazar/Pictures/Bardock_recuperandose_en_una_capsula.png
 ------WebKitFormBoundary--
