@@ -63,7 +63,7 @@ class SupabaseStorageService:
         file_size = file.tell()
         file.seek(0)
 
-        if file_size > 5 * 1024 * 1024:  # 5MB
+        if int(file_size) > 5 * 1024 * 1024:  # 5MB
             raise ValueError("File size too large. Maximum size: 5MB")
 
         # Generate unique filename

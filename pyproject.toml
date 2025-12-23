@@ -24,3 +24,6 @@ pythonpath = [
 testpaths = [
     "tests",
 ]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
