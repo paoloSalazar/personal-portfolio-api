@@ -21,6 +21,8 @@ try:
     from models.skill import Skill
     from models.user_skill import UserSkill
     from models.user_contact import UserContact
+    from models.resume import Resume
+    from models.resume_skill import ResumeSkill
 except ImportError:
     from .config import Config
     from .routes.api import api_bp
@@ -31,6 +33,8 @@ except ImportError:
     from .models.skill import Skill
     from .models.user_skill import UserSkill
     from .models.user_contact import UserContact
+    from .models.resume import Resume
+    from .models.resume_skill import ResumeSkill
 
 
 logger = logging.getLogger(__name__)
