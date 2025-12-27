@@ -21,6 +21,7 @@ class User(db.Model):
     updated_at = Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     skills = relationship('Skill', secondary='user_skills', back_populates='users')
+    resumes = relationship('Resume', back_populates='user')
 
     def __init__(self, name, last_name, second_last_name, email, password, about_me=None, profile_photo_url=None):
         self.name = name
