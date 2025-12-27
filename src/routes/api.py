@@ -7,6 +7,8 @@ try:
     from resources.skill_resource import SkillResource
     from resources.user_skill_resource import UserSkillResource
     from resources.user_contact_resource import UserContactResource
+    from resources.resume_resource import ResumeResource
+    from resources.resume_skill_resource import ResumeSkillResource
 except ImportError:
     from src.resources.user_resource import UserResource, UploadPhotoResource
     from src.resources.contact_type_resource import ContactTypeResource
@@ -14,6 +16,8 @@ except ImportError:
     from src.resources.skill_resource import SkillResource
     from src.resources.user_skill_resource import UserSkillResource
     from src.resources.user_contact_resource import UserContactResource
+    from src.resources.resume_resource import ResumeResource
+    from src.resources.resume_skill_resource import ResumeSkillResource
 
 api_bp = Blueprint('api', __name__)
 
@@ -40,3 +44,11 @@ api_bp.add_url_rule('/users/<int:user_id>/skills/<int:skill_id>', view_func=User
 # User Contact routes
 api_bp.add_url_rule('/users/<int:user_id>/contacts', view_func=UserContactResource.as_view('user_contacts'), methods=['GET', 'POST'])
 api_bp.add_url_rule('/users/<int:user_id>/contacts/<int:contact_id>', view_func=UserContactResource.as_view('user_contact'), methods=['GET', 'PUT', 'DELETE'])
+
+# Resume routes
+api_bp.add_url_rule('/users/<int:user_id>/resumes', view_func=ResumeResource.as_view('resumes'), methods=['GET', 'POST'])
+api_bp.add_url_rule('/users/<int:user_id>/resumes/<int:resume_id>', view_func=ResumeResource.as_view('resume'), methods=['GET', 'PUT', 'DELETE'])
+
+# Resume Skill routes
+api_bp.add_url_rule('/users/<int:user_id>/resumes/<int:resume_id>/skills', view_func=ResumeSkillResource.as_view('resume_skills'), methods=['GET', 'POST'])
+api_bp.add_url_rule('/users/<int:user_id>/resumes/<int:resume_id>/skills/<int:skill_id>', view_func=ResumeSkillResource.as_view('resume_skill'), methods=['DELETE'])

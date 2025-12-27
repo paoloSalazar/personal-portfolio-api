@@ -15,7 +15,7 @@ class Skill(db.Model):
     updated_at = Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     users = relationship('User', secondary='user_skills', back_populates='skills')
-    resumes = relationship('Resume', secondary='resume_skills', back_populates='skills')
+    resumes = relationship('Resume', secondary='resume_skills', back_populates='skill_objects')
 
     def __init__(self, name):
         self.name = name

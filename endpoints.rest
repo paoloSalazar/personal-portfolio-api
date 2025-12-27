@@ -1,7 +1,5 @@
 @api = http://localhost:5000/api
-@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NjQ0NjEyMCwianRpIjoiYzg4ZTU0MDQtOWEzNi00YjRkLWJjYjEtMDExNzRmZjkzZWQ5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjY0NDYxMjAsImNzcmYiOiIzMDhkYjM1Zi04YTA4LTRiMjktODI2Yy02NmQzYmFiOTAwNTkiLCJleHAiOjE3NjY0NDcwMjB9.rXDI2h34NOOxjujKXcjKQCaK-rlpAKjWtt7GI3yB2yU
-
-###
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NjgwODQzNywianRpIjoiMWNjZGNlNTktYjdjMi00NjNjLTljMTAtMWUyYTQ0YTAwYjg5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjY4MDg0MzcsImNzcmYiOiJiODlmMTU3Yy0wZWZhLTQ1NDktOWE2Yy1kOGRiNDVhNzJkOTIiLCJleHAiOjE3NjY4MDkzMzd9.E0hN02g3KZCx-bZkNoogws6H-tqnoh3IvwDBZK1bqbs
 
 GET {{api}}/users/9
 Content-Type: application/json
@@ -146,6 +144,10 @@ Content-Type: application/json
 }
 
 ###
+GET {{api}}/skills
+Content-Type: application/json
+
+###
 POST {{api}}/users/5/skills
 Content-Type: application/json
 Authorization: Bearer {{user_token}}
@@ -188,3 +190,34 @@ Content-Type: image/jpeg
 
 < /Users/paolosalazar/Pictures/Bardock_recuperandose_en_una_capsula.png
 ------WebKitFormBoundary--
+
+###
+
+# Register a resume for user 1 (without skills initially)
+POST {{api}}/users/1/resumes
+Content-Type: application/json
+Authorization: Bearer {{user_token}}
+
+{
+    "title": "Software Engineer Resume",
+    "summary": "Experienced software engineer with expertise in Python and web development.",
+    "education": "Bachelor's in Computer Science",
+    "start_date": "2020-01-01",
+    "end_date": null
+}
+
+###
+
+# Assign skills to resume 1 for user 1
+POST {{api}}/users/1/resumes/1/skills
+Content-Type: application/json
+Authorization: Bearer {{user_token}}
+
+{
+    "skill_ids": [3, 2]
+}
+
+###
+GET {{api}}/users/1/resumes/5/skills
+Content-Type: application/json
+Authorization: Bearer {{user_token}}

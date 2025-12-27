@@ -14,14 +14,13 @@ class Resume(db.Model):
     title = Column(String(200), nullable=False)
     summary = Column(String(1000), nullable=True)
     education = Column(String(2000), nullable=True)
-    skills = Column(String(1000), nullable=True)
     start_date = Column(String(50), nullable=True)
     end_date = Column(String(50), nullable=True)
     created_at = Column(db.DateTime, server_default=db.func.now())
     updated_at = Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     user = relationship('User', back_populates='resumes')
-    skills = relationship('Skill', secondary='resume_skills', back_populates='resumes')
+    skill_objects = relationship('Skill', secondary='resume_skills', back_populates='resumes')
 
     def __init__(self, user_id, title, summary=None, education=None, start_date=None, end_date=None):
         self.user_id = user_id
