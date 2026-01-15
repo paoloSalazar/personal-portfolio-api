@@ -1,5 +1,5 @@
 @api = http://localhost:5000/api
-@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NjgwODQzNywianRpIjoiMWNjZGNlNTktYjdjMi00NjNjLTljMTAtMWUyYTQ0YTAwYjg5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjY4MDg0MzcsImNzcmYiOiJiODlmMTU3Yy0wZWZhLTQ1NDktOWE2Yy1kOGRiNDVhNzJkOTIiLCJleHAiOjE3NjY4MDkzMzd9.E0hN02g3KZCx-bZkNoogws6H-tqnoh3IvwDBZK1bqbs
+@user_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NzUyNDg3OSwianRpIjoiNDU3ZDZlNzItOTQwZi00NDY2LTgwYTYtZDBiZmU4ODg2MTZkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3Njc1MjQ4NzksImNzcmYiOiIzN2RhMTBmZS1jMzBiLTRkYmMtYjczNS1hNjRkNDA2OTFhZjQiLCJleHAiOjE3Njc1MjU3Nzl9.LP2Na6x8tBgsGMqCz6-Fq92NDqLlymtf9l5B6g-zYIY
 
 GET {{api}}/users/9
 Content-Type: application/json
@@ -81,8 +81,8 @@ Content-Type: application/json
 Authorization: Bearer {{user_token}}
 
 {
-    "name": "whatsapp",
-    "description": "Whatsapp Number"
+    "name": "github",
+    "description": "GitHub Profile"
 }
 
 ###
@@ -91,7 +91,7 @@ Content-Type: application/json
 Authorization: Bearer {{user_token}}
 
 {
-    "name": "phonese"
+    "name": "phone"
 }
 
 ###

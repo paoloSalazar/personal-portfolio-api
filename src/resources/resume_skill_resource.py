@@ -8,7 +8,7 @@ try:
     from utils.auth import jwt_required, get_current_user_id
 except ImportError:
     from src.schemas.skill_schema import SkillSchema
-    from src.services.resume_skill_service import assign_skill_to_resume, remove_skill_from_resume, get_resume_skills
+    from src.services.resume_skill_service import assign_skills_to_resume, remove_skill_from_resume, get_resume_skills
     from src.utils.auth import jwt_required, get_current_user_id
 
 skills_schema = SkillSchema(many=True)
