@@ -18,4 +18,4 @@ class ContactType(db.Model):
         self.description = description
 
     def __repr__(self):
-        return f'<ContactType {self.name}>'
+        return f'<ContactType {self.name} {self.description}>'

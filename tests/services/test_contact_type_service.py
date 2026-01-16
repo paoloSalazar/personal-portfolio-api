@@ -1,4 +1,5 @@
 import pytest
+from src.exceptions.contact_type_exceptions import ContactTypeAlreadyExistsException, ContactTypeDatabaseException
 from src.services.contact_type_service import create_contact_type, get_all_contact_types, get_contact_type_by_id, update_contact_type, delete_contact_type
 
 def test_create_contact_type_service(app): 
